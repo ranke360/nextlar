@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Next Lar</title>
+<meta charset="utf-8">
+<!-- Favicon usando a imagem nextlar.jpg -->
+<link rel="icon" href="nextlar.jpg" type="image/jpeg" sizes="any">
+<link rel="apple-touch-icon" href="nextlar.jpg">
+<link rel="shortcut icon" href="nextlar.jpg">
+<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
+<style> @-ms-viewport { width: device-width; } </style>
+<link rel="stylesheet" href="vendor/reset.min.css">
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Logo */
+#logoContainer {
+  position: fixed;
+  top: 42px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+}
+
+#companyLogo {
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  opacity: 0.6;
+}
+
+#companyLogo:hover {
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+/* Barra superior */
+#titleBar {
+  background: rgba(0,0,0,0.15) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255,255,255,0.1);
+  font-family: 'Poppins', sans-serif !important;
+  font-weight: 600 !important;
+}
+
+/* Fonte MODERNA em toda interface */
+.sceneName, .scenes .text {
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.5px !important;
+}
+
+#sceneList {
+  background: rgba(0,0,0,0.25) !important;
+  backdrop-filter: blur(12px);
+  font-family: 'Poppins', sans-serif !important;
+}
+
+#sceneList ul {
+  background: transparent !important;
+}
+
+#sceneList .scenes li {
+  background: rgba(0,0,0,0.4) !important;
+  font-family: 'Poppins', sans-serif !important;
+  transition: all 0.2s ease !important;
+}
+
+#sceneList .scenes li:hover {
+  background: rgba(255,255,255,0.2) !important;
+}
+</style>
+</head>
+<body class="multiple-scenes">
+
+<!-- Logo -->
+<a href="https://www.instagram.com/nextlar.construtora" target="_blank">
+  <div id="logoContainer">
+    <img id="companyLogo" src="nextlar.jpg" alt="Next Lar - Instagram" title="Visite nosso Instagram">
+  </div>
+</a>
+
+<div id="pano"></div>
+
+<div id="sceneList">
+  <ul class="scenes">
+      <a href="javascript:void(0)" class="scene" data-id="0-1"><li class="text">Fachada</li></a>
+      <a href="javascript:void(0)" class="scene" data-id="1-2"><li class="text">Garagem</li></a>
+      <a href="javascript:void(0)" class="scene" data-id="2-3"><li class="text">Sala</li></a>
+      <a href="javascript:void(0)" class="scene" data-id="3-4"><li class="text">Quarto 1</li></a>
+      <a href="javascript:void(0)" class="scene" data-id="4-5"><li class="text">Banheiro 1</li></a>
+      <a href="javascript:void(0)" class="scene" data-id="5-6"><li class="text">Quarto 2</li></a>
+      <a href="javascript:void(0)" class="scene" data-id="6-7"><li class="text">Cozinha</li></a>
+      <a href="javascript:void(0)" class="scene" data-id="7-8"><li class="text">Quarto 3</li></a>
+      <a href="javascript:void(0)" class="scene" data-id="8-9"><li class="text">Closet</li></a>
+      <a href="javascript:void(0)" class="scene" data-id="9-10"><li class="text">Banheiro 2</li></a>
+      <a href="javascript:void(0)" class="scene" data-id="10-11"><li class="text">Área social</li></a>
+      <a href="javascript:void(0)" class="scene" data-id="11-12"><li class="text">Muro</li></a>
+      <a href="javascript:void(0)" class="scene" data-id="12-13"><li class="text">Área de serviço</li></a>
+  </ul>
+</div>
+
+<div id="titleBar">
+  <h1 class="sceneName"></h1>
+</div>
+
+<a href="javascript:void(0)" id="autorotateToggle">
+  <img class="icon off" src="img/play.png"><img class="icon on" src="img/pause.png">
+</a>
+<a href="javascript:void(0)" id="fullscreenToggle">
+  <img class="icon off" src="img/fullscreen.png"><img class="icon on" src="img/windowed.png">
+</a>
+<a href="javascript:void(0)" id="sceneListToggle">
+  <img class="icon off" src="img/expand.png"><img class="icon on" src="img/collapse.png">
+</a>
+
+<a href="javascript:void(0)" id="viewUp" class="viewControlButton viewControlButton-1">
+  <img class="icon" src="img/up.png">
+</a>
+<a href="javascript:void(0)" id="viewDown" class="viewControlButton viewControlButton-2">
+  <img class="icon" src="img/down.png">
+</a>
+<a href="javascript:void(0)" id="viewLeft" class="viewControlButton viewControlButton-3">
+  <img class="icon" src="img/left.png">
+</a>
+<a href="javascript:void(0)" id="viewRight" class="viewControlButton viewControlButton-4">
+  <img class="icon" src="img/right.png">
+</a>
+<a href="javascript:void(0)" id="viewIn" class="viewControlButton viewControlButton-5">
+  <img class="icon" src="img/plus.png">
+</a>
+<a href="javascript:void(0)" id="viewOut" class="viewControlButton viewControlButton-6">
+  <img class="icon" src="img/minus.png">
+</a>
+
+<script src="vendor/screenfull.min.js"></script>
+<script src="vendor/bowser.min.js"></script>
+<script src="vendor/marzipano.js"></script>
+<script src="data.js"></script>
+<script src="index.js"></script>
+
+</body>
+</html>
