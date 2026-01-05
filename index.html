@@ -13,33 +13,65 @@
 <link rel="stylesheet" href="style.css">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-/* Logo */
+/* Logo - RESPONSIVA E CORRIGIDA */
 #logoContainer {
-  position: fixed;
-  top: 42px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1000;
-  width: 55px !important;  /* Container também com tamanho fixo */
+  position: fixed !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  z-index: 1000 !important;
+  width: 55px !important;
   height: 55px !important;
 }
 
+/* Posição Desktop */
+#logoContainer {
+  top: 42px !important;
+}
+
 #companyLogo {
-  height: 55px;
-  width: 55px;
-  border-radius: 50%;
-  object-fit: cover;
-  display: block;
-  cursor: pointer;
-  transition: transform 0.2s ease, opacity 0.2s ease;
-  opacity: 0.6;
-  margin: 0 !important;        /* Remove margens extras */
+  height: 55px !important;
+  width: 55px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  display: block !important;
+  cursor: pointer !important;
+  transition: transform 0.2s ease, opacity 0.2s ease !important;
+  opacity: 0.6 !important;
+  margin: 0 !important;
   padding: 0 !important;
 }
 
 #companyLogo:hover {
-  transform: scale(1.1);
-  opacity: 1;
+  transform: scale(1.1) !important;
+  opacity: 1 !important;
+}
+
+/* SMARTPHONE - Logo menor e mais alta */
+@media screen and (max-width: 768px) {
+  #logoContainer {
+    top: 15px !important;
+    width: 45px !important;
+    height: 45px !important;
+  }
+  
+  #companyLogo {
+    height: 45px !important;
+    width: 45px !important;
+  }
+}
+
+/* TELA MUITO PEQUENA */
+@media screen and (max-width: 480px) {
+  #logoContainer {
+    top: 10px !important;
+    width: 40px !important;
+    height: 40px !important;
+  }
+  
+  #companyLogo {
+    height: 40px !important;
+    width: 40px !important;
+  }
 }
 
 /* Barra superior */
