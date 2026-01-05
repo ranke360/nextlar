@@ -3,7 +3,6 @@
 <head>
 <title>Next Lar</title>
 <meta charset="utf-8">
-<!-- Favicon usando a imagem nextlar.jpg -->
 <link rel="icon" href="nextlar.jpg" type="image/jpeg" sizes="any">
 <link rel="apple-touch-icon" href="nextlar.jpg">
 <link rel="shortcut icon" href="nextlar.jpg">
@@ -12,100 +11,103 @@
 <link rel="stylesheet" href="vendor/reset.min.css">
 <link rel="stylesheet" href="style.css">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
-/* Logo - RESPONSIVA E CORRIGIDA */
-#logoContainer {
+/* === LOGO - ESPECIFICIDADE MÁXIMA === */
+html body #logoContainer,
+html body div#logoContainer,
+body #logoContainer {
   position: fixed !important;
   left: 50% !important;
   transform: translateX(-50%) !important;
-  z-index: 1000 !important;
+  z-index: 9999 !important;
   width: 55px !important;
   height: 55px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 0 !important;
 }
 
 /* Posição Desktop */
-#logoContainer {
-  top: 42px !important;
+@media screen and (min-width: 769px) {
+  html body #logoContainer { top: 42px !important; }
 }
 
-#companyLogo {
+/* Tablets */
+@media screen and (max-width: 768px) and (min-width: 481px) {
+  html body #logoContainer { top: 12px !important; }
+  html body #logoContainer,
+  html body div#logoContainer { width: 48px !important; height: 48px !important; }
+}
+
+/* Smartphones */
+@media screen and (max-width: 480px) {
+  html body #logoContainer { top: 8px !important; }
+  html body #logoContainer,
+  html body div#logoContainer { width: 42px !important; height: 42px !important; }
+}
+
+/* === IMAGEM LOGO === */
+html body #logoContainer img#companyLogo,
+html body #companyLogo,
+body #companyLogo {
   height: 55px !important;
   width: 55px !important;
   border-radius: 50% !important;
   object-fit: cover !important;
   display: block !important;
   cursor: pointer !important;
-  transition: transform 0.2s ease, opacity 0.2s ease !important;
   opacity: 0.6 !important;
   margin: 0 !important;
   padding: 0 !important;
+  max-width: none !important;
+  max-height: none !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
 }
 
-#companyLogo:hover {
+@media screen and (max-width: 768px) and (min-width: 481px) {
+  html body #companyLogo { height: 48px !important; width: 48px !important; }
+}
+
+@media screen and (max-width: 480px) {
+  html body #companyLogo { height: 42px !important; width: 42px !important; }
+}
+
+html body #companyLogo:hover,
+body #companyLogo:hover {
   transform: scale(1.1) !important;
   opacity: 1 !important;
+  transition: all 0.2s ease !important;
 }
 
-/* SMARTPHONE - Logo menor e mais alta */
-@media screen and (max-width: 768px) {
-  #logoContainer {
-    top: 15px !important;
-    width: 45px !important;
-    height: 45px !important;
-  }
-  
-  #companyLogo {
-    height: 45px !important;
-    width: 45px !important;
-  }
-}
-
-/* TELA MUITO PEQUENA */
-@media screen and (max-width: 480px) {
-  #logoContainer {
-    top: 10px !important;
-    width: 40px !important;
-    height: 40px !important;
-  }
-  
-  #companyLogo {
-    height: 40px !important;
-    width: 40px !important;
-  }
-}
-
-/* Barra superior */
+/* === DEMAIS ESTILOS === */
 #titleBar {
   background: rgba(0,0,0,0.15) !important;
   backdrop-filter: blur(20px) !important;
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.1) !important;
   font-family: 'Poppins', sans-serif !important;
   font-weight: 600 !important;
 }
 
-/* Fonte MODERNA em toda interface */
 .sceneName, .scenes .text {
-  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-family: 'Poppins', sans-serif !important;
   font-weight: 500 !important;
   letter-spacing: 0.5px !important;
 }
 
 #sceneList {
   background: rgba(0,0,0,0.25) !important;
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px) !important;
   font-family: 'Poppins', sans-serif !important;
 }
 
-#sceneList ul {
-  background: transparent !important;
-}
-
+#sceneList ul { background: transparent !important; }
 #sceneList .scenes li {
   background: rgba(0,0,0,0.4) !important;
   font-family: 'Poppins', sans-serif !important;
   transition: all 0.2s ease !important;
 }
-
 #sceneList .scenes li:hover {
   background: rgba(255,255,255,0.2) !important;
 }
@@ -114,9 +116,9 @@
 <body class="multiple-scenes">
 
 <!-- Logo -->
-<a href="https://www.instagram.com/nextlar.construtora" target="_blank">
-  <div id="logoContainer">
-    <img id="companyLogo" src="nextlar.jpg" alt="Next Lar - Instagram" title="Visite nosso Instagram">
+<a href="https://www.instagram.com/nextlar.construtora" target="_blank" style="line-height: 0 !important; display: block !important;">
+  <div id="logoContainer" style="line-height: 0 !important;">
+    <img id="companyLogo" src="nextlar.jpg" alt="Next Lar - Instagram" title="Visite nosso Instagram" style="display: block !important;">
   </div>
 </a>
 
