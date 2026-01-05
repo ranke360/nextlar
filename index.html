@@ -37,7 +37,7 @@
   opacity: 1;
 }
 
-/* LOGO WHATSAPP - SÓ IMAGEM LIMPA + PULSO RÁPIDO */
+/* LOGO WHATSAPP - DISCRETA BRANCA / TRADICIONAL VERDE */
 #whatsappContainer {
   position: fixed;
   bottom: 25px;
@@ -51,22 +51,37 @@
   height: 45px !important;
   border-radius: 50%;
   cursor: pointer;
-  transition: transform 0.2s ease;
-  animation: whatsappPulse 1s infinite; /* MAIS RÁPIDO: 1s */
+  transition: all 0.3s ease;
+  animation: whatsappPulse 1s infinite;
   border: none !important;
   outline: none !important;
-  box-shadow: none !important; /* SEM SOMBRA */
+  box-shadow: none !important;
+  opacity: 0.6 !important;
+  /* LOGO DISCRETA BRANCA */
+  content: url("https://img.icons8.com/ios-filled/50/ffffff/whatsapp.png");
 }
 
 #whatsappLogo:hover {
   transform: scale(1.15);
-  animation-play-state: paused; /* PARA PULSO NO HOVER */
+  animation-play-state: paused;
+  opacity: 1 !important;
+  /* LOGO TRADICIONAL VERDE */
+  content: url("https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg");
 }
 
 @keyframes whatsappPulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
+  0% { 
+    transform: scale(1); 
+    opacity: 0.6;
+  }
+  50% { 
+    transform: scale(1.12);
+    opacity: 0.9;
+  }
+  100% { 
+    transform: scale(1); 
+    opacity: 0.6;
+  }
 }
 
 /* Sidebar - INICIA RECOLHIDO */
@@ -107,10 +122,10 @@
   </div>
 </a>
 
-<!-- LOGO WHATSAPP - LIMPA E RÁPIDA -->
+<!-- LOGO WHATSAPP DISCRETA → TRADICIONAL -->
 <a href="https://wa.me/5588999786660?text=Olá%20preciso%20de%20mais%20informações%20sobre%20esse%20imóvel!" target="_blank">
   <div id="whatsappContainer">
-    <img id="whatsappLogo" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" title="Fale conosco no WhatsApp">
+    <img id="whatsappLogo" src="https://img.icons8.com/ios-filled/50/ffffff/whatsapp.png" alt="WhatsApp" title="Fale conosco no WhatsApp">
   </div>
 </a>
 
@@ -179,7 +194,7 @@ function addHotspotZoom() {
       if (currentViewer) {
         currentViewer.zoomTo({
           center: currentViewer.center(),
-          zoom: currentViewer.zoom() * 1.8, // Zoom 80% maior
+          zoom: currentViewer.zoom() * 1.8,
           easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
         });
         
