@@ -219,15 +219,33 @@ waitForMarzipano();
 
 <script src="index.js"></script>
 
+<!-- BLOQUEIO COMPLETO - MENU CONTEXTUAL + DEVTOOLS + SALVAR PÁGINA -->
 <script>
 document.addEventListener('contextmenu', e => e.preventDefault());
 document.addEventListener('keydown', e => {
+  // BLOQUEIO SALVAR PÁGINA (Ctrl+S, Cmd+S)
+  if((e.ctrlKey && e.key === 's') || (e.metaKey && e.key === 's')) {
+    e.preventDefault();
+    return false;
+  }
+  // BLOQUEIO DEVTOOLS EXISTENTE
   if(e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I') || 
      (e.ctrlKey && e.shiftKey && e.key === 'J') || (e.ctrlKey && e.key === 'u')) {
     e.preventDefault();
   }
 });
 document.onselectstart = () => false;
+document.ondragstart = () => false;
+window.onbeforeunload = () => false;
+
+// BLOQUEIO ADICIONAL SALVAR COMO
+document.addEventListener('keydown', function(e) {
+  if (e.key === 's' && (e.ctrlKey || e.metaKey)) {
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+  }
+}, true);
 
 const observer = new MutationObserver(function(mutations) {
   mutations.forEach(function(mutation) {
