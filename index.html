@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="style.css">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-/* Logo */
+/* Logo Next Lar */
 #logoContainer {
   position: fixed;
   top: 52px;
@@ -35,6 +35,38 @@
 #companyLogo:hover {
   transform: scale(1.1);
   opacity: 1;
+}
+
+/* LOGO WHATSAPP - SÓ IMAGEM LIMPA + PULSO RÁPIDO */
+#whatsappContainer {
+  position: fixed;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2000;
+}
+
+#whatsappLogo {
+  width: 45px !important;
+  height: 45px !important;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  animation: whatsappPulse 1s infinite; /* MAIS RÁPIDO: 1s */
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important; /* SEM SOMBRA */
+}
+
+#whatsappLogo:hover {
+  transform: scale(1.15);
+  animation-play-state: paused; /* PARA PULSO NO HOVER */
+}
+
+@keyframes whatsappPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
 }
 
 /* Sidebar - INICIA RECOLHIDO */
@@ -68,10 +100,17 @@
 </head>
 <body class="multiple-scenes">
 
-<!-- Logo -->
+<!-- Logo Next Lar -->
 <a href="https://www.instagram.com/nextlar.construtora" target="_blank">
   <div id="logoContainer">
     <img id="companyLogo" src="nextlar.jpg" alt="Next Lar - Instagram" title="Visite nosso Instagram">
+  </div>
+</a>
+
+<!-- LOGO WHATSAPP - LIMPA E RÁPIDA -->
+<a href="https://wa.me/5588999786660?text=Olá%20preciso%20de%20mais%20informações%20sobre%20esse%20imóvel!" target="_blank">
+  <div id="whatsappContainer">
+    <img id="whatsappLogo" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" title="Fale conosco no WhatsApp">
   </div>
 </a>
 
