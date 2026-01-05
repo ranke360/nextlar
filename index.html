@@ -13,83 +13,69 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-/* === LOGO - ESPECIFICIDADE MÁXIMA === */
-html body #logoContainer,
-html body div#logoContainer,
-body #logoContainer {
-  position: fixed !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  z-index: 9999 !important;
-  width: 55px !important;
-  height: 55px !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  line-height: 0 !important;
+/* LOGO SIMPLIFICADA - SEM ESPECIFICIDADE EXCESSIVA */
+#logoContainer {
+  position: fixed;
+  z-index: 100;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 55px;
+  height: 55px;
+  line-height: 0;
 }
 
-/* Posição Desktop */
-@media screen and (min-width: 769px) {
-  html body #logoContainer { top: 42px !important; }
-}
-
-/* Tablets */
-@media screen and (max-width: 768px) and (min-width: 481px) {
-  html body #logoContainer { top: 12px !important; }
-  html body #logoContainer,
-  html body div#logoContainer { width: 48px !important; height: 48px !important; }
-}
-
-/* Smartphones */
-@media screen and (max-width: 480px) {
-  html body #logoContainer { top: 8px !important; }
-  html body #logoContainer,
-  html body div#logoContainer { width: 42px !important; height: 42px !important; }
-}
-
-/* === IMAGEM LOGO === */
-html body #logoContainer img#companyLogo,
-html body #companyLogo,
-body #companyLogo {
-  height: 55px !important;
-  width: 55px !important;
+/* IMAGEM DA LOGO */
+#companyLogo {
+  width: 100% !important;
+  height: 100% !important;
   border-radius: 50% !important;
   object-fit: cover !important;
   display: block !important;
-  cursor: pointer !important;
-  opacity: 0.6 !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  max-width: none !important;
-  max-height: none !important;
-  min-width: 0 !important;
-  min-height: 0 !important;
+  opacity: 0.7;
+  transition: all 0.2s ease;
 }
 
-@media screen and (max-width: 768px) and (min-width: 481px) {
-  html body #companyLogo { height: 48px !important; width: 48px !important; }
+#companyLogo:hover {
+  opacity: 1;
+  transform: scale(1.1);
 }
 
-@media screen and (max-width: 480px) {
-  html body #companyLogo { height: 42px !important; width: 42px !important; }
+/* DESKTOP */
+@media (min-width: 769px) {
+  #logoContainer { top: 25px; }
 }
 
-html body #companyLogo:hover,
-body #companyLogo:hover {
-  transform: scale(1.1) !important;
-  opacity: 1 !important;
-  transition: all 0.2s ease !important;
+/* TABLET */
+@media (max-width: 768px) and (min-width: 481px) {
+  #logoContainer { 
+    top: 10px; 
+    width: 48px; 
+    height: 48px; 
+  }
 }
 
-/* === DEMAIS ESTILOS === */
+/* SMARTPHONE */
+@media (max-width: 480px) {
+  #logoContainer { 
+    top: 5px; 
+    width: 42px; 
+    height: 42px; 
+  }
+}
+
+/* BARRA SUPERIOR ABAIXO DA LOGO */
 #titleBar {
+  top: 90px !important;
+  position: relative !important;
   background: rgba(0,0,0,0.15) !important;
   backdrop-filter: blur(20px) !important;
   border: 1px solid rgba(255,255,255,0.1) !important;
   font-family: 'Poppins', sans-serif !important;
   font-weight: 600 !important;
+  z-index: 50 !important;
 }
 
+/* DEMAIS ESTILOS */
 .sceneName, .scenes .text {
   font-family: 'Poppins', sans-serif !important;
   font-weight: 500 !important;
@@ -108,17 +94,16 @@ body #companyLogo:hover {
   font-family: 'Poppins', sans-serif !important;
   transition: all 0.2s ease !important;
 }
-#sceneList .scenes li:hover {
-  background: rgba(255,255,255,0.2) !important;
-}
+#sceneList .scenes li:hover { background: rgba(255,255,255,0.2) !important; }
 </style>
+
 </head>
 <body class="multiple-scenes">
 
 <!-- Logo -->
-<a href="https://www.instagram.com/nextlar.construtora" target="_blank" style="line-height: 0 !important; display: block !important;">
-  <div id="logoContainer" style="line-height: 0 !important;">
-    <img id="companyLogo" src="nextlar.jpg" alt="Next Lar - Instagram" title="Visite nosso Instagram" style="display: block !important;">
+<a href="https://www.instagram.com/nextlar.construtora" target="_blank">
+  <div id="logoContainer">
+    <img id="companyLogo" src="nextlar.jpg" alt="Next Lar - Instagram">
   </div>
 </a>
 
@@ -146,6 +131,7 @@ body #companyLogo:hover {
   <h1 class="sceneName"></h1>
 </div>
 
+<!-- BOTÕES -->
 <a href="javascript:void(0)" id="autorotateToggle">
   <img class="icon off" src="img/play.png"><img class="icon on" src="img/pause.png">
 </a>
@@ -155,7 +141,6 @@ body #companyLogo:hover {
 <a href="javascript:void(0)" id="sceneListToggle">
   <img class="icon off" src="img/expand.png"><img class="icon on" src="img/collapse.png">
 </a>
-
 <a href="javascript:void(0)" id="viewUp" class="viewControlButton viewControlButton-1">
   <img class="icon" src="img/up.png">
 </a>
