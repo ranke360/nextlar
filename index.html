@@ -3,7 +3,6 @@
 <head>
 <title>Next Lar</title>
 <meta charset="utf-8">
-<!-- Favicon usando a imagem nextlar.jpg -->
 <link rel="icon" href="nextlar.jpg" type="image/jpeg" sizes="any">
 <link rel="apple-touch-icon" href="nextlar.jpg">
 <link rel="shortcut icon" href="nextlar.jpg">
@@ -38,41 +37,33 @@
   opacity: 1;
 }
 
-/* Barra superior */
-#titleBar {
-  background: rgba(0,0,0,0.15) !important;
-  backdrop-filter: blur(20px) !important;
-  border: 1px solid rgba(255,255,255,0.1);
-  font-family: 'Poppins', sans-serif !important;
-  font-weight: 600 !important;
-}
-
-/* Fonte MODERNA em toda interface */
-.sceneName, .scenes .text {
-  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
-  font-weight: 500 !important;
-  letter-spacing: 0.5px !important;
-}
-
+/* Sidebar - INICIA RECOLHIDO */
 #sceneList {
-  background: rgba(0,0,0,0.25) !important;
-  backdrop-filter: blur(12px);
+  background: rgba(0,0,0,0.8) !important;
   font-family: 'Poppins', sans-serif !important;
+  display: none !important;
 }
 
-#sceneList ul {
-  background: transparent !important;
-}
-
+#sceneList ul { background: transparent !important; }
 #sceneList .scenes li {
-  background: rgba(0,0,0,0.4) !important;
+  background: rgba(0,0,0,0.6) !important;
   font-family: 'Poppins', sans-serif !important;
+  color: white !important;
   transition: all 0.2s ease !important;
 }
-
 #sceneList .scenes li:hover {
-  background: rgba(255,255,255,0.2) !important;
+  background: rgba(255,255,255,0.3) !important;
 }
+
+/* ESCONDE barra e controles */
+#titleBar { display: none !important; }
+#autorotateToggle, #fullscreenToggle, #sceneListToggle,
+#viewUp, #viewDown, #viewLeft, #viewRight, #viewIn, #viewOut { 
+  display: none !important; 
+}
+
+/* Proteção panorama */
+#pano * { filter: none !important; -webkit-filter: none !important; }
 </style>
 </head>
 <body class="multiple-scenes">
@@ -104,44 +95,100 @@
   </ul>
 </div>
 
-<div id="titleBar">
-  <h1 class="sceneName"></h1>
-</div>
-
-<a href="javascript:void(0)" id="autorotateToggle">
-  <img class="icon off" src="img/play.png"><img class="icon on" src="img/pause.png">
-</a>
-<a href="javascript:void(0)" id="fullscreenToggle">
-  <img class="icon off" src="img/fullscreen.png"><img class="icon on" src="img/windowed.png">
-</a>
-<a href="javascript:void(0)" id="sceneListToggle">
-  <img class="icon off" src="img/expand.png"><img class="icon on" src="img/collapse.png">
-</a>
-
-<a href="javascript:void(0)" id="viewUp" class="viewControlButton viewControlButton-1">
-  <img class="icon" src="img/up.png">
-</a>
-<a href="javascript:void(0)" id="viewDown" class="viewControlButton viewControlButton-2">
-  <img class="icon" src="img/down.png">
-</a>
-<a href="javascript:void(0)" id="viewLeft" class="viewControlButton viewControlButton-3">
-  <img class="icon" src="img/left.png">
-</a>
-<a href="javascript:void(0)" id="viewRight" class="viewControlButton viewControlButton-4">
-  <img class="icon" src="img/right.png">
-</a>
-<a href="javascript:void(0)" id="viewIn" class="viewControlButton viewControlButton-5">
-  <img class="icon" src="img/plus.png">
-</a>
-<a href="javascript:void(0)" id="viewOut" class="viewControlButton viewControlButton-6">
-  <img class="icon" src="img/minus.png">
-</a>
+<!-- Elementos vazios pro index.js -->
+<div id="titleBar"></div>
+<a href="javascript:void(0)" id="autorotateToggle" style="display: none;"></a>
+<a href="javascript:void(0)" id="fullscreenToggle" style="display: none;"></a>
+<a href="javascript:void(0)" id="sceneListToggle" style="display: none;"></a>
+<a href="javascript:void(0)" id="viewUp" class="viewControlButton viewControlButton-1" style="display: none;"></a>
+<a href="javascript:void(0)" id="viewDown" class="viewControlButton viewControlButton-2" style="display: none;"></a>
+<a href="javascript:void(0)" id="viewLeft" class="viewControlButton viewControlButton-3" style="display: none;"></a>
+<a href="javascript:void(0)" id="viewRight" class="viewControlButton viewControlButton-4" style="display: none;"></a>
+<a href="javascript:void(0)" id="viewIn" class="viewControlButton viewControlButton-5" style="display: none;"></a>
+<a href="javascript:void(0)" id="viewOut" class="viewControlButton viewControlButton-6" style="display: none;"></a>
 
 <script src="vendor/screenfull.min.js"></script>
 <script src="vendor/bowser.min.js"></script>
 <script src="vendor/marzipano.js"></script>
 <script src="data.js"></script>
+
+<!-- INTERCEPTA CLICK NOS HOTSPOTS ANTES do index.js -->
+<script>
+let currentViewer = null;
+let zoomTimeout = null;
+
+// Espera Marzipano carregar
+function waitForMarzipano() {
+  if (typeof marzipano !== 'undefined' && window.viewer) {
+    currentViewer = window.viewer;
+    addHotspotZoom();
+  } else {
+    setTimeout(waitForMarzipano, 100);
+  }
+}
+
+// Adiciona zoom aos hotspots
+function addHotspotZoom() {
+  const panoElement = document.getElementById('pano');
+  
+  // Intercepta todos os cliques nos hotspots
+  panoElement.addEventListener('click', function(e) {
+    if (e.target.classList.contains('hotspot') || e.target.closest('.hotspot')) {
+      e.stopPropagation();
+      
+      // ZOOM IN suave
+      if (currentViewer) {
+        currentViewer.zoomTo({
+          center: currentViewer.center(),
+          zoom: currentViewer.zoom() * 1.8, // Zoom 80% maior
+          easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+        });
+        
+        // Volta ao normal após 2s
+        clearTimeout(zoomTimeout);
+        zoomTimeout = setTimeout(() => {
+          if (currentViewer) {
+            currentViewer.zoomTo({
+              center: currentViewer.center(),
+              zoom: currentViewer.zoom() / 1.8,
+              easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+            });
+          }
+        }, 2000);
+      }
+    }
+  }, true);
+}
+
+waitForMarzipano();
+</script>
+
 <script src="index.js"></script>
+
+<script>
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('keydown', e => {
+  if(e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+     (e.ctrlKey && e.shiftKey && e.key === 'J') || (e.ctrlKey && e.key === 'u')) {
+    e.preventDefault();
+  }
+});
+document.onselectstart = () => false;
+
+const observer = new MutationObserver(function(mutations) {
+  mutations.forEach(function(mutation) {
+    if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+      const sceneList = document.getElementById('sceneList');
+      if (sceneList.classList.contains('show') || 
+          sceneList.style.display === 'block' || 
+          window.getComputedStyle(sceneList).display !== 'none') {
+        sceneList.style.display = 'block';
+      }
+    }
+  });
+});
+observer.observe(document.getElementById('sceneList'), { attributes: true });
+</script>
 
 </body>
 </html>
